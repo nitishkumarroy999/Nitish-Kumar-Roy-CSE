@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nitish Kumar Roy — AI & 6G Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #060a10;
+    --surface: #0d1520;
+    --surface2: #111d2e;
+    --border: rgba(56, 189, 248, 0.12);
+    --accent: #38bdf8;
+    --accent2: #818cf8;
+    --accent3: #34d399;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --heading: #f0f9ff;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Space Grotesk', sans-serif;
+    --serif: 'Fraunces', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Grid noise texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(6,10,16,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); font-size: 0.85rem; text-decoration: none;
+    font-family: var(--mono); letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-content { text-align: center; max-width: 760px; position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 300;
+    color: var(--heading);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+  }
+
+  .hero-title {
+    font-family: var(--mono);
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+  }
+
+  .hero-title span { color: var(--accent2); }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: rgba(226,232,240,0.7);
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    justify-content: center; margin-bottom: 2.5rem;
+  }
+
+  .tag {
+    font-family: var(--mono); font-size: 0.75rem;
+    padding: 0.3rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    background: var(--surface);
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-cta {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 0.75rem 1.75rem;
+    border-radius: 6px;
+    font-family: var(--mono); font-size: 0.85rem;
+    letter-spacing: 0.08em; text-decoration: none;
+    transition: all 0.2s; cursor: pointer; border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent); color: #060a10; font-weight: 500;
+  }
+  .btn-primary:hover { background: #7dd3fc; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  /* Sections */
+  section { padding: 5rem 2rem; max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+
+  .section-label {
+    font-family: var(--mono); font-size: 0.75rem;
+    color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: 2rem; font-weight: 600;
+    color: var(--heading); margin-bottom: 3rem;
+    line-height: 1.2;
+  }
+
+  /* Research card */
+  .research-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .research-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  }
+
+  .research-badge {
+    display: inline-block;
+    font-family: var(--mono); font-size: 0.7rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(56,189,248,0.1);
+    border: 1px solid rgba(56,189,248,0.3);
+    border-radius: 4px;
+    color: var(--accent);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .research-title {
+    font-size: 1.3rem; font-weight: 600;
+    color: var(--heading); margin-bottom: 0.5rem;
+  }
+
+  .research-sub {
+    font-family: var(--mono); font-size: 0.8rem;
+    color: var(--muted); margin-bottom: 1.25rem;
+  }
+
+  .research-meta {
+    display: flex; flex-wrap: wrap; gap: 1.5rem;
+    margin-top: 1.5rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .research-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .research-meta-item .label { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .research-meta-item .value { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+
+  /* Skills grid */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .skill-group-name {
+    font-family: var(--mono); font-size: 0.72rem;
+    color: var(--accent2); letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .skill-pill {
+    font-family: var(--mono); font-size: 0.72rem;
+    padding: 0.25rem 0.6rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    color: var(--text);
+  }
+
+  /* Projects */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.25s;
+    display: flex; flex-direction: column;
+  }
+
+  .project-card:hover {
+    border-color: rgba(56,189,248,0.3);
+    transform: translateY(-3px);
+    background: var(--surface2);
+  }
+
+  .project-icon {
+    font-size: 1.75rem; margin-bottom: 0.75rem;
+  }
+
+  .project-name {
+    font-size: 1rem; font-weight: 600;
+    color: var(--heading); margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-size: 0.875rem; color: rgba(226,232,240,0.6);
+    line-height: 1.6; flex: 1; margin-bottom: 1rem;
+  }
+
+  .project-techs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+
+  .tech-chip {
+    font-family: var(--mono); font-size: 0.68rem;
+    padding: 0.2rem 0.55rem;
+    background: rgba(129,140,248,0.1);
+    border: 1px solid rgba(129,140,248,0.2);
+    border-radius: 3px;
+    color: var(--accent2);
+  }
+
+  .project-link {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--accent); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+  }
+  .project-link:hover { color: #7dd3fc; }
+
+  /* Education timeline */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+
+  .timeline-item {
+    display: flex; gap: 1.5rem;
+    padding-bottom: 2rem; position: relative;
+  }
+
+  .timeline-item:not(:last-child)::before {
+    content: '';
+    position: absolute; left: 19px; top: 40px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+
+  .timeline-dot {
+    width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; position: relative; z-index: 1;
+  }
+
+  .timeline-content {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.1rem 1.25rem; flex: 1;
+  }
+
+  .timeline-degree { font-size: 0.95rem; font-weight: 600; color: var(--heading); }
+  .timeline-school { font-size: 0.85rem; color: var(--muted); margin-top: 0.15rem; }
+  .timeline-year { font-family: var(--mono); font-size: 0.75rem; color: var(--accent2); margin-top: 0.5rem; }
+  .timeline-score {
+    display: inline-block; margin-top: 0.5rem;
+    font-family: var(--mono); font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 4px; color: var(--accent3);
+  }
+
+  /* Publication */
+  .pub-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.75rem;
+  }
+  .pub-title { font-size: 1rem; font-weight: 600; color: var(--heading); margin-bottom: 0.5rem; }
+  .pub-journal { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+  .pub-link {
+    font-family: var(--mono); font-size: 0.8rem; color: var(--accent);
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;
+  }
+
+  /* Contact */
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .contact-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.25rem;
+    text-decoration: none; display: flex; flex-direction: column; gap: 0.4rem;
+    transition: all 0.2s;
+  }
+  .contact-item:hover { border-color: rgba(56,189,248,0.3); transform: translateY(-2px); }
+
+  .contact-icon { font-size: 1.4rem; }
+  .contact-platform { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .contact-value { font-size: 0.85rem; color: var(--text); word-break: break-all; }
+
+  /* Footer */
+  footer {
+    text-align: center; padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono); font-size: 0.75rem;
+    color: var(--muted); position: relative; z-index: 1;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-content > * { animation: fadeUp 0.7s ease both; }
+  .hero-eyebrow { animation-delay: 0.1s; }
+  .hero-name { animation-delay: 0.2s; }
+  .hero-title { animation-delay: 0.3s; }
+  .hero-desc { animation-delay: 0.4s; }
+  .hero-tags { animation-delay: 0.5s; }
+  .hero-cta { animation-delay: 0.6s; }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ML Neural Network Background Canvas -->
+<canvas id="ml-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.65;"></canvas>
+
+<nav>
+  <div class="nav-logo">nkr.dev</div>
+  <ul class="nav-links">
+    <li><a href="#research">research</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Project Engineer · IIT Indore</div>
+    <h1 class="hero-name">Nitish Kumar Roy</h1>
+    <p class="hero-title">
+      AI & 6G Researcher &nbsp;/&nbsp; <span>Full-Stack Developer</span> &nbsp;/&nbsp; ML Enthusiast
+    </p>
+    <p class="hero-desc">
+      Building AI-assisted digital twins for next-generation 6G networks. Passionate about applying machine learning to solve complex telecom and systems challenges.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">6G Networks</span>
+      <span class="tag">Terahertz (THz)</span>
+      <span class="tag">Digital Twin</span>
+      <span class="tag">Deep Learning</span>
+      <span class="tag">ns-3 / TeraSim</span>
+      <span class="tag">IoT</span>
+    </div>
+    <div class="hero-cta">
+      <a href="mailto:nitishkumarroy526@gmail.com" class="btn btn-primary">Get in touch</a>
+      <a href="https://www.linkedin.com/in/nitish-kumar-roy-0a8a8b131" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-label">// 01</div>
+  <h2 class="section-title">Current Research</h2>
+  <div class="research-card">
+    <div class="research-badge">TTDF · IIT Indore · Active</div>
+    <div class="research-title">DARPAN</div>
+    <div class="research-sub">An AI-assisted reliable indigenous digital twin for sixth sense 6G Networks</div>
+    <p style="font-size:0.9rem; color:rgba(226,232,240,0.65); line-height:1.8;">
+      Working on the Telecom Technology Development Fund (TTDF) project at the Department of Electrical Engineering, IIT Indore. Architecting and implementing AI-driven solutions for 6G network simulation using the TeraSim module on ns-3, with a focus on Terahertz (THz) communications and digital twin reliability.
+    </p>
+    <div class="research-meta">
+      <div class="research-meta-item">
+        <span class="label">Project Code</span>
+        <span class="value">TTDF/6G/194</span>
+      </div>
+      <div class="research-meta-item">
+        <span class="label">Role</span>
+        <span class="value">Project Engineer (PE)</span>
+      </div>
+      <div class="research-meta-item">
+        <span class="label">Department</span>
+        <span class="value">Electrical Engineering</span>
+      </div>
+      <div class="research-meta-item">
+        <span class="label">Since</span>
+        <span class="value">September 2025</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">// 02</div>
+  <h2 class="section-title">Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-name">Languages</div>
+      <div class="skill-pills">
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">C++</span>
+        <span class="skill-pill">Java</span>
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">HTML</span>
+        <span class="skill-pill">CSS</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Networking & Simulation</div>
+      <div class="skill-pills">
+        <span class="skill-pill">ns-3</span>
+        <span class="skill-pill">TeraSim</span>
+        <span class="skill-pill">6G / THz</span>
+        <span class="skill-pill">Digital Twin</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Hardware & IoT</div>
+      <div class="skill-pills">
+        <span class="skill-pill">Arduino</span>
+        <span class="skill-pill">Ultrasonic Sensors</span>
+        <span class="skill-pill">Servo Motors</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Databases & OS</div>
+      <div class="skill-pills">
+        <span class="skill-pill">MySQL</span>
+        <span class="skill-pill">Linux (Ubuntu)</span>
+        <span class="skill-pill">macOS</span>
+        <span class="skill-pill">Windows</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Core Competencies</div>
+      <div class="skill-pills">
+        <span class="skill-pill">Machine Learning</span>
+        <span class="skill-pill">Deep Learning</span>
+        <span class="skill-pill">Data Structures</span>
+        <span class="skill-pill">Web Technology</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">// 03</div>
+  <h2 class="section-title">Featured Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-icon">🧠</div>
+      <div class="project-name">Deep Learning for Enhanced ML</div>
+      <p class="project-desc">Published research on neural networks tailored for speech, image, and text data — demonstrating practical effectiveness and accuracy of deep learning models.</p>
+      <div class="project-techs">
+        <span class="tech-chip">Python</span>
+        <span class="tech-chip">Deep Learning</span>
+        <span class="tech-chip">NLP</span>
+        <span class="tech-chip">Neural Networks</span>
+      </div>
+      <a href="https://ijirts.org/index.php/ijirts/article/view/24" target="_blank" class="project-link">Read Publication ↗</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🌐</div>
+      <div class="project-name">Student Management System</div>
+      <p class="project-desc">Dynamic full-stack web app for streamlined academic administration — data entry, reporting, and automated administrative tasks.</p>
+      <div class="project-techs">
+        <span class="tech-chip">Python</span>
+        <span class="tech-chip">MySQL</span>
+        <span class="tech-chip">HTML</span>
+        <span class="tech-chip">CSS</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🛒</div>
+      <div class="project-name">E-Commerce Prototype</div>
+      <p class="project-desc">Fully functional online store with product listings, secure user authentication, and responsive frontend design principles.</p>
+      <div class="project-techs">
+        <span class="tech-chip">HTML</span>
+        <span class="tech-chip">CSS</span>
+        <span class="tech-chip">JavaScript</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🗑️</div>
+      <div class="project-name">Smart Dustbin (IoT)</div>
+      <p class="project-desc">Automated, contactless smart dustbin using Arduino and an ultrasonic sensor — detects proximity and opens via servo motor for hygienic waste disposal.</p>
+      <div class="project-techs">
+        <span class="tech-chip">Arduino</span>
+        <span class="tech-chip">C++</span>
+        <span class="tech-chip">Ultrasonic</span>
+        <span class="tech-chip">IoT</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">// 04</div>
+  <h2 class="section-title">Education</h2>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot">🎓</div>
+      <div class="timeline-content">
+        <div class="timeline-degree">Master of Computer Applications (MCA)</div>
+        <div class="timeline-school">Sam Global University</div>
+        <div class="timeline-year">2022 – 2024</div>
+        <span class="timeline-score">CGPA: 7.74 / 10</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot">🎓</div>
+      <div class="timeline-content">
+        <div class="timeline-degree">Bachelor of Computer Applications (BCA)</div>
+        <div class="timeline-school">Gauhati University</div>
+        <div class="timeline-year">2019 – 2022</div>
+        <span class="timeline-score">CGPA: 8.51 / 10</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot">💻</div>
+      <div class="timeline-content">
+        <div class="timeline-degree">Advanced Diploma in Information Technology (ADIT)</div>
+        <div class="timeline-school">National Board of Computer Education</div>
+        <span class="timeline-score">60.00%</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-label">// 05</div>
+  <h2 class="section-title">Publications</h2>
+  <div class="pub-card">
+    <div class="pub-title">Deep Learning for Enhanced Machine Learning Using Neural Networks</div>
+    <div class="pub-journal">IJIRTS — International Journal of Innovative Research & Technology Studies · 2024</div>
+    <p style="font-size:0.875rem; color:rgba(226,232,240,0.6); margin-bottom:1rem; line-height:1.7;">
+      Research on neural network architectures tailored for speech, image, and text data. Demonstrates practical effectiveness of deep learning in real-world applications.
+    </p>
+    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+      <a href="https://ijirts.org/index.php/ijirts/article/view/24" target="_blank" class="pub-link">Read Paper ↗</a>
+      <a href="https://orcid.org/0009-0005-9081-2444" target="_blank" class="pub-link">ORCID Profile ↗</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// 06</div>
+  <h2 class="section-title">Get In Touch</h2>
+  <div class="contact-grid">
+    <a href="mailto:nitishkumarroy526@gmail.com" class="contact-item">
+      <span class="contact-icon">📧</span>
+      <span class="contact-platform">Email</span>
+      <span class="contact-value">nitishkumarroy526@gmail.com</span>
+    </a>
+    <a href="https://www.linkedin.com/in/nitish-kumar-roy-0a8a8b131" target="_blank" class="contact-item">
+      <span class="contact-icon">💼</span>
+      <span class="contact-platform">LinkedIn</span>
+      <span class="contact-value">nitish-kumar-roy-0a8a8b131</span>
+    </a>
+    <a href="https://orcid.org/0009-0005-9081-2444" target="_blank" class="contact-item">
+      <span class="contact-icon">🔬</span>
+      <span class="contact-platform">ORCID</span>
+      <span class="contact-value">0009-0005-9081-2444</span>
+    </a>
+    <div class="contact-item" style="cursor:default;">
+      <span class="contact-icon">📍</span>
+      <span class="contact-platform">Location</span>
+      <span class="contact-value">Assam, Nagaon, India – 782002</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Nitish Kumar Roy &nbsp;·&nbsp; Project Engineer @ IIT Indore &nbsp;·&nbsp; Built with ❤️</p>
+</footer>
+
+<!-- Music Player UI -->
+<div id="music-player" style="
+  position:fixed; bottom:1.5rem; right:1.5rem; z-index:200;
+  background:rgba(6,10,16,0.88); backdrop-filter:blur(20px);
+  border:1px solid rgba(56,189,248,0.18); border-radius:14px;
+  padding:0.8rem 1rem; display:flex; align-items:center; gap:0.7rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  min-width:190px;
+">
+  <button id="play-btn" onclick="toggleMusic()" style="
+    width:36px; height:36px; border-radius:50%; border:none; cursor:pointer;
+    background:linear-gradient(135deg,#38bdf8,#0e7490);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; font-size:13px; transition:transform 0.2s;
+  " title="Play / Pause">▶</button>
+  <div style="flex:1; min-width:0;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:#38bdf8; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:2px;">Now Playing</div>
+    <div style="font-size:0.76rem; color:#e2e8f0; font-family:'Space Grotesk',sans-serif; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Guitar Solo — Neural Breeze</div>
+    <div id="music-bars" style="display:flex; gap:2px; margin-top:5px; align-items:flex-end; height:14px;">
+      <span class="bar" style="width:3px;background:linear-gradient(#38bdf8,#0e7490);border-radius:2px;height:4px;"></span>
+      <span class="bar" style="width:3px;background:linear-gradient(#38bdf8,#0e7490);border-radius:2px;height:10px;"></span>
+      <span class="bar" style="width:3px;background:linear-gradient(#38bdf8,#0e7490);border-radius:2px;height:7px;"></span>
+      <span class="bar" style="width:3px;background:linear-gradient(#38bdf8,#0e7490);border-radius:2px;height:14px;"></span>
+      <span class="bar" style="width:3px;background:linear-gradient(#38bdf8,#0e7490);border-radius:2px;height:6px;"></span>
+      <span class="bar" style="width:3px;background:linear-gradient(#38bdf8,#0e7490);border-radius:2px;height:11px;"></span>
+      <span class="bar" style="width:3px;background:linear-gradient(#38bdf8,#0e7490);border-radius:2px;height:5px;"></span>
+    </div>
+  </div>
+  <div id="vol-wrap" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+    <span style="font-size:11px;">🔊</span>
+    <input type="range" id="vol-slider" min="0" max="100" value="40" style="width:50px;" oninput="setVolume(this.value)">
+  </div>
+</div>
+
+<style>
+@keyframes barDance {
+  0%,100%{transform:scaleY(1)} 50%{transform:scaleY(0.3)}
+}
+#music-bars.playing .bar { animation: barDance 0.8s ease-in-out infinite; }
+#music-bars.playing .bar:nth-child(1){animation-delay:0s}
+#music-bars.playing .bar:nth-child(2){animation-delay:0.15s}
+#music-bars.playing .bar:nth-child(3){animation-delay:0.3s}
+#music-bars.playing .bar:nth-child(4){animation-delay:0.1s}
+#music-bars.playing .bar:nth-child(5){animation-delay:0.45s}
+#music-bars.playing .bar:nth-child(6){animation-delay:0.25s}
+#music-bars.playing .bar:nth-child(7){animation-delay:0.55s}
+</style>
+
+<script>
+/* ── CLASSIC ML NEURAL NETWORK BACKGROUND ── */
+(function(){
+  const canvas = document.getElementById('ml-bg');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes, edges, signals;
+
+  // Classic: 4 layers, deep teal + gold + sky palette — restrained and elegant
+  const LAYERS = [4, 6, 6, 3];
+  const NODE_COL  = ['#38bdf8','#67e8f9','#fcd34d','#34d399'];
+  const EDGE_COL  = ['rgba(56,189,248,','rgba(103,232,249,','rgba(252,211,77,','rgba(52,211,153,'];
+  const SIG_COL   = ['#38bdf8','#67e8f9','#fcd34d','#34d399','#7dd3fc'];
+
+  function h2r(hex){
+    return [parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16)];
+  }
+
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    build();
+  }
+
+  function build(){
+    nodes=[]; edges=[]; signals=[];
+    const xPad = W*0.15, xSp = (W-xPad*2)/(LAYERS.length-1);
+    LAYERS.forEach((cnt,li)=>{
+      const x = xPad + li*xSp;
+      const ySp = H/(cnt+1);
+      for(let ni=0;ni<cnt;ni++){
+        nodes.push({
+          x, y: ySp*(ni+1),
+          r: 4.5+Math.random()*2,
+          layer:li, pulse:Math.random()*Math.PI*2,
+          pulseSpeed:0.015+Math.random()*0.012,
+          active:Math.random()>0.4
+        });
+      }
+    });
+    for(let li=0;li<LAYERS.length-1;li++){
+      const from=nodes.filter(n=>n.layer===li);
+      const to=nodes.filter(n=>n.layer===li+1);
+      from.forEach(f=>to.forEach(t=>{
+        edges.push({from:f,to:t,op:0.07+Math.random()*0.11,li});
+      }));
+    }
+    for(let i=0;i<10;i++) spawnSig();
+  }
+
+  function spawnSig(){
+    if(!edges.length) return;
+    const e=edges[Math.floor(Math.random()*edges.length)];
+    signals.push({
+      e, t:Math.random(),
+      speed:0.003+Math.random()*0.004,
+      col:SIG_COL[Math.floor(Math.random()*SIG_COL.length)],
+      sz:2.5+Math.random()*1.5, trail:[]
+    });
+  }
+
+  function draw(){
+    requestAnimationFrame(draw);
+    ctx.clearRect(0,0,W,H);
+
+    // Single soft ambient glow at center — classic, not chaotic
+    const cx=W/2, cy=H/2;
+    const ag=ctx.createRadialGradient(cx,cy,0,cx,cy,W*0.45);
+    ag.addColorStop(0,'rgba(56,189,248,0.04)');
+    ag.addColorStop(0.6,'rgba(52,211,153,0.02)');
+    ag.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath(); ctx.rect(0,0,W,H); ctx.fillStyle=ag; ctx.fill();
+
+    // Edges
+    edges.forEach(e=>{
+      const a = e.op*(e.from.active?1.8:0.7);
+      ctx.beginPath();
+      ctx.moveTo(e.from.x,e.from.y);
+      ctx.lineTo(e.to.x,e.to.y);
+      ctx.strokeStyle=EDGE_COL[e.li]+a+')';
+      ctx.lineWidth=0.55;
+      ctx.stroke();
+    });
+
+    // Signals
+    const rem=[];
+    signals.forEach((s,si)=>{
+      s.t+=s.speed;
+      const px=s.e.from.x+(s.e.to.x-s.e.from.x)*s.t;
+      const py=s.e.from.y+(s.e.to.y-s.e.from.y)*s.t;
+      s.trail.push({x:px,y:py});
+      if(s.trail.length>10) s.trail.shift();
+
+      s.trail.forEach((pt,ti)=>{
+        ctx.globalAlpha=(ti/s.trail.length)*0.45;
+        ctx.beginPath(); ctx.arc(pt.x,pt.y,s.sz*(ti/s.trail.length)*0.7,0,Math.PI*2);
+        ctx.fillStyle=s.col; ctx.fill();
+      });
+      ctx.globalAlpha=1;
+
+      // Glow head
+      const g=ctx.createRadialGradient(px,py,0,px,py,s.sz*4);
+      g.addColorStop(0,s.col+'bb'); g.addColorStop(1,s.col+'00');
+      ctx.beginPath(); ctx.arc(px,py,s.sz*4,0,Math.PI*2);
+      ctx.fillStyle=g; ctx.fill();
+      ctx.beginPath(); ctx.arc(px,py,s.sz,0,Math.PI*2);
+      ctx.fillStyle=s.col; ctx.fill();
+
+      if(s.t>=1){
+        s.e.to.active=true; s.e.to.pulse=0;
+        setTimeout(()=>{ if(s.e.to) s.e.to.active=Math.random()>0.4; },280);
+        rem.push(si);
+        const out=edges.filter(e=>e.from===s.e.to);
+        if(out.length){
+          const oe=out[Math.floor(Math.random()*out.length)];
+          signals.push({e:oe,t:0,speed:0.003+Math.random()*0.004,col:SIG_COL[Math.floor(Math.random()*SIG_COL.length)],sz:2.5+Math.random()*1.5,trail:[]});
+        }
+        if(s.e.to.layer===LAYERS.length-1) spawnSig();
+      }
+    });
+    for(let i=rem.length-1;i>=0;i--) signals.splice(rem[i],1);
+    while(signals.length<14) spawnSig();
+
+    // Nodes
+    nodes.forEach(n=>{
+      n.pulse+=n.pulseSpeed;
+      const pf=0.5+0.5*Math.sin(n.pulse);
+      const col=NODE_COL[n.layer];
+      const r=n.r+(n.active?pf*2.5:0);
+      const [rr,gg,bb]=h2r(col);
+
+      if(n.active){
+        const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,r*5);
+        g.addColorStop(0,`rgba(${rr},${gg},${bb},0.22)`);
+        g.addColorStop(1,`rgba(${rr},${gg},${bb},0)`);
+        ctx.beginPath(); ctx.arc(n.x,n.y,r*5,0,Math.PI*2);
+        ctx.fillStyle=g; ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(n.x,n.y,r,0,Math.PI*2);
+      ctx.fillStyle=n.active ? col+'cc' : `rgba(${rr},${gg},${bb},0.15)`;
+      ctx.fill();
+      ctx.strokeStyle=col+(n.active?'ff':'55');
+      ctx.lineWidth=0.9; ctx.stroke();
+    });
+
+    // Layer labels
+    const lnames=['INPUT','HIDDEN','HIDDEN','OUTPUT'];
+    const xPad=W*0.15, xSp=(W-xPad*2)/(LAYERS.length-1);
+    ctx.font='9px JetBrains Mono,monospace';
+    ctx.textAlign='center';
+    lnames.forEach((nm,li)=>{
+      ctx.fillStyle=NODE_COL[li]+'77';
+      ctx.fillText(nm, xPad+li*xSp, 20);
+    });
+  }
+
+  window.addEventListener('resize',resize);
+  resize(); draw();
+})();
+</script>
+
+<script>
+/* ── GUITAR SOLO — MEDIUM TONE (Web Audio API) ── */
+let audioCtx=null, masterGain=null, isPlaying=false;
+let loopTimer=null, currentVol=0.45;
+
+function midiToFreq(m){ return 440*Math.pow(2,(m-69)/12); }
+
+// Medium-range guitar solo melody in A minor — warm, expressive, not too high/low
+// Notes around MIDI 57–76 (A3–E5) — the classic guitar sweet spot
+const SOLO = [
+  [69,0.5],[72,0.4],[71,0.3],[69,0.5],[67,0.4],
+  [65,0.5],[64,0.4],[65,0.5],[67,0.8],
+  [69,0.4],[72,0.4],[74,0.5],[72,0.4],[71,0.3],[69,0.6],
+  [67,0.5],[65,0.4],[64,0.5],[62,0.9],
+  [64,0.4],[65,0.3],[67,0.4],[69,0.5],[71,0.4],[72,0.8],
+  [74,0.5],[72,0.4],[71,0.5],[69,0.4],[67,0.4],[65,0.5],
+  [64,0.5],[62,0.4],[60,0.5],[62,0.4],[64,0.5],[65,0.9],
+  [67,0.5],[69,0.4],[67,0.5],[65,0.4],[64,0.4],[62,1.2],
+  [64,0.5],[65,0.4],[67,0.6],[69,0.5],[71,0.4],[72,0.5],[74,1.0],
+  [72,0.4],[71,0.3],[69,0.5],[67,0.4],[65,0.5],[64,0.4],[62,1.4],
+];
+
+// Chord pads (soft, behind the solo)
+const CHORD_PROG = [
+  [[57,60,64], 2.5],  // Am
+  [[55,59,62], 2.5],  // G
+  [[53,57,60], 2.5],  // F
+  [[52,55,59], 2.5],  // Em
+  [[57,60,64], 2.5],
+  [[55,59,62], 2.5],
+  [[53,57,60], 2.5],
+  [[52,55,59], 2.5],
+];
+
+function playGuitarNote(freq, startTime, duration, vol=0.22){
+  // Karplus-Strong inspired: sawtooth + comb-filtered for plucked string feel
+  const osc  = audioCtx.createOscillator();
+  const osc2 = audioCtx.createOscillator();
+  const env  = audioCtx.createGain();
+  const lp   = audioCtx.createBiquadFilter();
+  const hp   = audioCtx.createBiquadFilter();
+
+  // Warm sawtooth core + slight detuned sine for warmth
+  osc.type='sawtooth'; osc.frequency.value=freq; osc.detune.value=3;
+  osc2.type='sine'; osc2.frequency.value=freq*0.998; osc2.detune.value=-3;
+
+  // Low-pass for warmth — medium tone, not bright
+  lp.type='lowpass'; lp.frequency.value=2800; lp.Q.value=1.2;
+  // High-pass to remove muddiness
+  hp.type='highpass'; hp.frequency.value=140; hp.Q.value=0.7;
+
+  const t=startTime;
+  env.gain.setValueAtTime(0,t);
+  env.gain.linearRampToValueAtTime(vol, t+0.008);       // sharp pluck attack
+  env.gain.exponentialRampToValueAtTime(vol*0.55, t+0.06); // pick decay
+  env.gain.setTargetAtTime(vol*0.18, t+0.06, duration*0.3); // sustain
+  env.gain.exponentialRampToValueAtTime(0.0001, t+duration*1.4); // release
+
+  // Add a subtle vibrato on longer notes
+  if(duration>0.5){
+    const vib=audioCtx.createOscillator();
+    const vibGain=audioCtx.createGain();
+    vib.frequency.value=5.5; vib.type='sine';
+    vibGain.gain.value=4; // cents of vibrato
+    vib.connect(vibGain); vibGain.connect(osc.detune);
+    vib.start(t+0.1); vib.stop(t+duration*1.4);
+  }
+
+  osc.connect(lp); osc2.connect(lp);
+  lp.connect(hp); hp.connect(env); env.connect(masterGain);
+
+  osc.start(t); osc2.start(t);
+  osc.stop(t+duration*1.5); osc2.stop(t+duration*1.5);
+}
+
+function playChordPad(midis, startTime, duration){
+  midis.forEach(m=>{
+    const osc=audioCtx.createOscillator();
+    const env=audioCtx.createGain();
+    const lp=audioCtx.createBiquadFilter();
+    osc.type='triangle'; osc.frequency.value=midiToFreq(m);
+    lp.type='lowpass'; lp.frequency.value=900; lp.Q.value=0.5;
+    const t=startTime;
+    env.gain.setValueAtTime(0,t);
+    env.gain.linearRampToValueAtTime(0.04,t+0.15);
+    env.gain.setTargetAtTime(0.028,t+0.2,0.4);
+    env.gain.exponentialRampToValueAtTime(0.0001,t+duration*1.1);
+    osc.connect(lp); lp.connect(env); env.connect(masterGain);
+    osc.start(t); osc.stop(t+duration*1.2);
+  });
+}
+
+function soloTotalDur(){
+  return SOLO.reduce((a,[,d])=>a+d,0);
+}
+
+function scheduleLoop(){
+  if(!isPlaying) return;
+  const now = audioCtx.currentTime+0.06;
+
+  // Schedule chord pads
+  let ct=now;
+  CHORD_PROG.forEach(([midis,dur])=>{
+    playChordPad(midis,ct,dur); ct+=dur;
+  });
+
+  // Schedule guitar solo on top
+  let st=now;
+  SOLO.forEach(([midi,dur])=>{
+    // Small humanise timing variation ±20ms
+    const jitter=(Math.random()-0.5)*0.04;
+    playGuitarNote(midiToFreq(midi), st+jitter, dur, 0.20+Math.random()*0.05);
+    st+=dur;
+  });
+
+  const loopDur = Math.max(soloTotalDur(), CHORD_PROG.reduce((a,[,d])=>a+d,0));
+  loopTimer = setTimeout(scheduleLoop, (loopDur-0.4)*1000);
+}
+
+function initAudio(){
+  if(audioCtx) return;
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  masterGain=audioCtx.createGain();
+
+  // Simple convolution reverb using two delay nodes — warm room feel
+  const delay1=audioCtx.createDelay(0.5);
+  const delay2=audioCtx.createDelay(0.5);
+  const delayGain=audioCtx.createGain();
+  delay1.delayTime.value=0.22; delay2.delayTime.value=0.35;
+  delayGain.gain.value=0.18;
+  masterGain.connect(delay1); delay1.connect(delayGain);
+  masterGain.connect(delay2); delay2.connect(delayGain);
+  delayGain.connect(audioCtx.destination);
+  masterGain.connect(audioCtx.destination);
+
+  masterGain.gain.value=currentVol;
+}
+
+function toggleMusic(){
+  initAudio();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  if(!isPlaying){
+    isPlaying=true;
+    document.getElementById('play-btn').textContent='⏸';
+    document.getElementById('music-bars').classList.add('playing');
+    scheduleLoop();
+  } else {
+    isPlaying=false;
+    document.getElementById('play-btn').textContent='▶';
+    document.getElementById('music-bars').classList.remove('playing');
+    if(loopTimer) clearTimeout(loopTimer);
+    if(masterGain){ masterGain.gain.linearRampToValueAtTime(0,audioCtx.currentTime+0.6); }
+    setTimeout(()=>{ if(masterGain) masterGain.gain.value=currentVol; },700);
+  }
+}
+
+function setVolume(val){
+  currentVol=val/100;
+  if(masterGain) masterGain.gain.value=currentVol;
+}
+</script>
+
+</body>
+</html>
