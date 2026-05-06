@@ -166,9 +166,9 @@ me.say_hi()
 |--------|------------|------|-------|
 | 🎓 **MCA** (Master of Computer Applications) | Sam Global University | 2022–2024 | CGPA: 7.74/10 |
 | 🎓 **BCA** (Bachelor of Computer Applications) | Gauhati University | 2019–2022 | CGPA: 8.51/10 |
-| 💻 **ADIT** (Adv. Diploma in IT) | National Board of Computer Education | — | 60.00% |
-| 📘 **Higher Secondary (10+2)** | AHSEC | 2016–2018 | 47.00% |
-| 📗 **Secondary (10th)** | SEBA | 2004–2016 | 50.16% |
+| 💻 **ADIT** (Adv. Diploma in IT) | National Board of Computer Education | 2019 | 6/10 |
+| 📘 **Higher Secondary (10+2)** | AHSEC | 2016–2018
+| 📗 **Secondary (10th)** | SEBA | 2004–2016 
 
 ---
 
