@@ -199,7 +199,7 @@ me.say_hi()
 
 | Platform | Link |
 |----------|------|
-| 📧 Email | [nitishkumarroy526@gmail.com](mailto:nitishkumarroy526@gmail.com) |
+| 📧 Email | [nitishkumarroy526@gmail.com](mailto:nitishkumarroy*******) |
 | 💼 LinkedIn | [linkedin.com/in/nitish-kumar-roy-0a8a8b131](https://www.linkedin.com/in/nitish-kumar-roy-0a8a8b131) |
 | 🔬 ORCID | [orcid.org/0009-0005-9081-2444](https://orcid.org/0009-0005-9081-2444) |
 | 📍 Location | Assam, Nagaon, India – 782002 |
