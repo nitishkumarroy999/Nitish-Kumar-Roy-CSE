@@ -23,7 +23,52 @@
     --mono: 'JetBrains Mono', monospace;
     --sans: 'Space Grotesk', sans-serif;
     --serif: 'Fraunces', serif;
+    --bg-rgb: 6,10,16;
+    --text-rgb: 226,232,240;
+    --ink-rgb: 255,255,255;
+    --canvas-opacity: 0.65;
+    color-scheme: dark;
   }
+
+  /* Light theme */
+  :root[data-theme="light"] {
+    --bg: #f6f9fc;
+    --surface: #ffffff;
+    --surface2: #eef4fa;
+    --border: rgba(3,105,161,0.18);
+    --accent: #0369a1;
+    --accent2: #4f46e5;
+    --accent3: #047857;
+    --text: #1e293b;
+    --muted: #475569;
+    --heading: #0f172a;
+    --bg-rgb: 246,249,252;
+    --text-rgb: 30,41,59;
+    --ink-rgb: 15,23,42;
+    --canvas-opacity: 0.4;
+    color-scheme: light;
+  }
+  :root[data-theme="light"] body::before {
+    background-image:
+      linear-gradient(rgba(3,105,161,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(3,105,161,0.06) 1px, transparent 1px);
+  }
+  :root[data-theme="light"] .btn-primary { background: var(--accent); color: #fff; }
+  :root[data-theme="light"] .btn-primary:hover { background: #075985; }
+  :root[data-theme="light"] #music-player { box-shadow: 0 4px 24px rgba(15,23,42,0.15) !important; }
+
+  body, nav, .research-card, .project-card, .skill-group, .timeline-content, .pub-card,
+  .contact-item, .teach-card, .news-card, .venture-card { transition: background-color 0.3s, border-color 0.3s, color 0.3s; }
+
+  .theme-toggle {
+    width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    font-size: 1rem; display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .theme-toggle:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
 
   html { scroll-behavior: smooth; }
 
@@ -55,7 +100,7 @@
     z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 1rem 2.5rem;
-    background: rgba(6,10,16,0.8);
+    background: rgba(var(--bg-rgb),0.8);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
   }
@@ -133,7 +178,7 @@
 
   .hero-desc {
     font-size: 1.05rem;
-    color: rgba(226,232,240,0.7);
+    color: rgba(var(--text-rgb),0.7);
     max-width: 540px;
     margin: 0 auto 2.5rem;
     line-height: 1.8;
@@ -267,8 +312,8 @@
   .skill-pill {
     font-family: var(--mono); font-size: 0.72rem;
     padding: 0.25rem 0.6rem;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(var(--ink-rgb),0.04);
+    border: 1px solid rgba(var(--ink-rgb),0.08);
     border-radius: 4px;
     color: var(--text);
   }
@@ -304,7 +349,7 @@
   }
 
   .project-desc {
-    font-size: 0.875rem; color: rgba(226,232,240,0.6);
+    font-size: 0.875rem; color: rgba(var(--text-rgb),0.6);
     line-height: 1.6; flex: 1; margin-bottom: 1rem;
   }
 
@@ -394,6 +439,58 @@
   .contact-platform { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
   .contact-value { font-size: 0.85rem; color: var(--text); word-break: break-all; }
 
+
+  /* Conference news banner */
+  .news-card {
+    background: linear-gradient(135deg, rgba(56,189,248,0.07), rgba(129,140,248,0.07));
+    border: 1px solid rgba(56,189,248,0.3);
+    border-radius: 12px; padding: 2rem; position: relative; overflow: hidden;
+  }
+  .news-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  }
+  .news-paper { font-size: 1.15rem; font-weight: 600; color: var(--heading); margin: 0.25rem 0 0.75rem; line-height: 1.4; }
+  .news-authors { font-size: 0.9rem; color: var(--text); margin-bottom: 1rem; }
+  .news-authors a { color: var(--accent); text-decoration: none; }
+  .news-authors a:hover { text-decoration: underline; }
+  .news-text { font-size: 0.9rem; color: rgba(var(--text-rgb),0.7); line-height: 1.8; margin-bottom: 0.9rem; }
+  .news-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem; }
+  .hashtags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
+  .hashtags span {
+    font-family: var(--mono); font-size: 0.68rem; padding: 0.2rem 0.55rem;
+    background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 3px; color: var(--accent3);
+  }
+
+  /* MineMirror venture */
+  .venture-card {
+    background: var(--surface); border: 1px solid rgba(52,211,153,0.3);
+    border-radius: 12px; padding: 2rem; position: relative; overflow: hidden;
+  }
+  .venture-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent3), var(--accent), var(--accent2));
+  }
+  .venture-badge {
+    display: inline-block; font-family: var(--mono); font-size: 0.7rem;
+    padding: 0.25rem 0.75rem; background: rgba(52,211,153,0.1);
+    border: 1px solid rgba(52,211,153,0.3); border-radius: 4px; color: var(--accent3);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;
+  }
+
+
+  /* Teaching */
+  .teach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+  .teach-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.75rem; transition: all 0.25s;
+  }
+  .teach-card:hover { border-color: rgba(56,189,248,0.3); background: var(--surface2); }
+  .teach-role { font-size: 1.1rem; font-weight: 600; color: var(--heading); margin: 0.25rem 0 0.25rem; }
+  .teach-org { font-family: var(--mono); font-size: 0.8rem; color: var(--accent2); margin-bottom: 0.9rem; }
+  .teach-desc { font-size: 0.9rem; color: rgba(var(--text-rgb),0.65); line-height: 1.8; }
+
   /* Footer */
   footer {
     text-align: center; padding: 2rem;
@@ -429,22 +526,37 @@
     section { padding: 4rem 1.25rem; }
   }
 </style>
+<script>
+  (function(){
+    var t=null;
+    try{ t=localStorage.getItem('theme'); }catch(e){}
+    if(t!=='light' && t!=='dark') t='dark';
+    document.documentElement.setAttribute('data-theme',t);
+  })();
+</script>
 </head>
 <body>
 
 <!-- ML Neural Network Background Canvas -->
-<canvas id="ml-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.65;"></canvas>
+<canvas id="ml-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:var(--canvas-opacity);"></canvas>
 
 <nav>
   <div class="nav-logo">nkr.dev</div>
+  <div class="nav-right">
   <ul class="nav-links">
+    <li><a href="#news">news</a></li>
     <li><a href="#experience">experience</a></li>
     <li><a href="#research">research</a></li>
+    <li><a href="#teaching">teaching</a></li>
     <li><a href="#skills">skills</a></li>
     <li><a href="#projects">projects</a></li>
+    <li><a href="#minemirror">minemirror</a></li>
     <li><a href="#education">education</a></li>
+    <li><a href="#publications">publications</a></li>
     <li><a href="#contact">contact</a></li>
   </ul>
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode" title="Toggle dark / light mode">☀</button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -470,9 +582,60 @@
     <div class="hero-cta">
       <a href="mailto:nitishkumarroy526@gmail.com" class="btn btn-primary">Get in touch</a>
       <a href="https://www.linkedin.com/in/nitish-kumar-roy-0a8a8b131" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+      <a href="https://nitishkumarroy999.github.io/MineMirror-AI-is-a-real-time-Physics-Informed-Digital-Twin-platform-/" target="_blank" class="btn btn-outline">MineMirror AI ↗</a>
     </div>
   </div>
 </div>
+
+<hr class="divider"/>
+
+<!-- LATEST NEWS: CoRL 2026 -->
+<section id="news">
+  <div class="section-label">// Latest</div>
+  <h2 class="section-title">Presented at CoRL 2026</h2>
+  <div class="news-card">
+    <div class="research-badge">CoRL 2026 · Workshop Paper · Austin, TX</div>
+    <div class="news-paper">Where Does Regret Come From? Oracle-Substitution Diagnostics for Partner-Aware Agents</div>
+    <div class="news-authors">
+      Authors:
+      <a href="https://www.linkedin.com/in/nitish-kumar-roy-0a8a8b131/" target="_blank">Nitish Kumar Roy</a>,
+      <a href="https://www.linkedin.com/in/dhawanjunior/" target="_blank">Dhawan Junior Sangwan</a>
+    </div>
+    <p class="news-text">
+      We presented our paper at the Conference on Robot Learning (CoRL) 2026 in Austin, TX. In multi-agent and human-robot interaction settings, building partner-aware agents is critical, but diagnosing why an agent fails or accumulates regret when collaborating with others remains a major challenge. We introduce <strong>Oracle-Substitution Diagnostics</strong>, a systematic framework to pinpoint the exact sources of regret in partner-aware agents.
+    </p>
+    <p class="news-text">
+      Thank you to everyone who stopped by Salon D for the insightful discussions, tough questions, and great feedback. If you work on multi-agent reinforcement learning, human-AI coordination, or robot learning, I'd love to connect.
+    </p>
+    <div class="research-meta">
+      <div class="research-meta-item">
+        <span class="label">Conference</span>
+        <span class="value">CoRL 2026</span>
+      </div>
+      <div class="research-meta-item">
+        <span class="label">Workshop</span>
+        <span class="value">RoboLetics 3.0</span>
+      </div>
+      <div class="research-meta-item">
+        <span class="label">Venue</span>
+        <span class="value">Hilton Austin (Salon D)</span>
+      </div>
+      <div class="research-meta-item">
+        <span class="label">Date</span>
+        <span class="value">November 12, 2026</span>
+      </div>
+    </div>
+    <div class="news-links">
+      <a href="https://lnkd.in/gHEDQGfr" target="_blank" class="pub-link">View Paper ↗</a>
+      <a href="https://roboletics.github.io/corl2026/#accepted" target="_blank" class="pub-link">RoboLetics 3.0 Workshop ↗</a>
+      <a href="https://www.linkedin.com/in/nitish-kumar-roy-0a8a8b131" target="_blank" class="pub-link">Discuss on LinkedIn ↗</a>
+    </div>
+    <div class="hashtags">
+      <span>#CoRL2026</span><span>#RobotLearning</span><span>#MultiAgentSystems</span>
+      <span>#ReinforcementLearning</span><span>#AIResearch</span><span>#Robotics</span><span>#MachineLearning</span>
+    </div>
+  </div>
+</section>
 
 <hr class="divider"/>
 
@@ -484,7 +647,7 @@
     <div class="research-badge">PM-ECRG · ANRF · Active</div>
     <div class="research-title">Doctoral Researcher</div>
     <div class="research-sub">SRM Institute of Science and Technology (SRMIST) · Full-time · Chennai, Tamil Nadu · On-site</div>
-    <p style="font-size:0.9rem; color:rgba(226,232,240,0.65); line-height:1.8;">
+    <p style="font-size:0.9rem; color:rgba(var(--text-rgb),0.65); line-height:1.8;">
       Junior Research Fellow in the Department of Computational Intelligence, working under the Prime Minister's Early Career Research Grant (PM-ECRG), administered by the Anusandhan National Research Foundation (ANRF).
     </p>
     <div class="research-meta">
@@ -518,7 +681,7 @@
     <div class="research-badge">TTDF · IIT Indore · Completed</div>
     <div class="research-title">DARPAN</div>
     <div class="research-sub">An AI-assisted reliable indigenous digital twin for sixth sense 6G Networks</div>
-    <p style="font-size:0.9rem; color:rgba(226,232,240,0.65); line-height:1.8;">
+    <p style="font-size:0.9rem; color:rgba(var(--text-rgb),0.65); line-height:1.8;">
       Worked on the Telecom Technology Development Fund (TTDF) project at the Department of Electrical Engineering, IIT Indore. Architected and implemented AI-driven solutions for 6G network simulation using the TeraSim module on ns-3, with a focus on Terahertz (THz) communications and digital twin reliability.
     </p>
     <div class="research-meta">
@@ -544,9 +707,31 @@
 
 <hr class="divider"/>
 
+<!-- TEACHING EXPERIENCE -->
+<section id="teaching">
+  <div class="section-label">// 03</div>
+  <h2 class="section-title">Teaching Experience</h2>
+  <div class="teach-grid">
+    <div class="teach-card">
+      <div class="research-badge">Academia · Computer Science &amp; Engineering</div>
+      <div class="teach-role">Assistant Professor</div>
+      <div class="teach-org">Lovely Professional University (LPU) · Jalandhar, Punjab</div>
+      <p class="teach-desc">Appointed to teach Computer Science &amp; Engineering at one of India's largest private universities.</p>
+    </div>
+    <div class="teach-card">
+      <div class="research-badge">Academia · Computer Science &amp; Engineering</div>
+      <div class="teach-role">Assistant Professor</div>
+      <div class="teach-org">Himalayan Group of Professional Institutions · Himachal Pradesh</div>
+      <p class="teach-desc">Delivered CSE instruction in a professional engineering institution.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
 <!-- SKILLS -->
 <section id="skills">
-  <div class="section-label">// 03</div>
+  <div class="section-label">// 04</div>
   <h2 class="section-title">Technical Skills</h2>
   <div class="skills-grid">
     <div class="skill-group">
@@ -602,7 +787,7 @@
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="section-label">// 04</div>
+  <div class="section-label">// 05</div>
   <h2 class="section-title">Featured Projects</h2>
   <div class="projects-grid">
 
@@ -659,9 +844,38 @@
 
 <hr class="divider"/>
 
+<!-- MINEMIRROR AI -->
+<section id="minemirror">
+  <div class="section-label">// 06</div>
+  <h2 class="section-title">My Digital Twin Venture</h2>
+  <div class="venture-card">
+    <div class="venture-badge">Building · Open to collaborators</div>
+    <div class="research-title">MineMirror AI</div>
+    <div class="research-sub">A real-time, physics-informed digital twin platform</div>
+    <p style="font-size:0.9rem; color:rgba(var(--text-rgb),0.65); line-height:1.8; margin-bottom:1rem;">
+      MineMirror AI is my digital twin concept company. It builds a live virtual replica of a physical system and grounds it in physics, so the twin stays reliable and can be used to monitor, simulate, and predict what happens next.
+    </p>
+    <p style="font-size:0.9rem; color:rgba(var(--text-rgb),0.65); line-height:1.8;">
+      <strong style="color:var(--heading);">Want to join?</strong> I'm looking for engineers, researchers, and domain experts in digital twins, machine learning, simulation, and IoT who want to build this with me.
+    </p>
+    <div class="project-techs" style="margin-top:1rem;">
+      <span class="tech-chip">Digital Twin</span>
+      <span class="tech-chip">Physics-Informed ML</span>
+      <span class="tech-chip">Real-Time</span>
+      <span class="tech-chip">Simulation</span>
+    </div>
+    <div class="hero-cta" style="justify-content:flex-start; margin-top:1.5rem;">
+      <a href="https://nitishkumarroy999.github.io/MineMirror-AI-is-a-real-time-Physics-Informed-Digital-Twin-platform-/" target="_blank" class="btn btn-primary">Visit MineMirror AI ↗</a>
+      <a href="mailto:nitishkumarroy526@gmail.com?subject=Joining%20MineMirror%20AI" class="btn btn-outline">Join the team</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
 <!-- EDUCATION -->
 <section id="education">
-  <div class="section-label">// 05</div>
+  <div class="section-label">// 07</div>
   <h2 class="section-title">Education</h2>
   <div class="timeline">
 
@@ -701,12 +915,23 @@
 
 <!-- PUBLICATIONS -->
 <section id="publications">
-  <div class="section-label">// 06</div>
+  <div class="section-label">// 08</div>
   <h2 class="section-title">Publications</h2>
+  <div class="pub-card" style="margin-bottom:1.25rem; border-color:rgba(56,189,248,0.3);">
+    <div class="pub-title">Where Does Regret Come From? Oracle-Substitution Diagnostics for Partner-Aware Agents</div>
+    <div class="pub-journal">CoRL 2026 Workshop (RoboLetics 3.0) · Hilton Austin, Salon D · November 12, 2026</div>
+    <p style="font-size:0.875rem; color:rgba(var(--text-rgb),0.6); margin-bottom:1rem; line-height:1.7;">
+      With Dhawan Junior Sangwan. Introduces Oracle-Substitution Diagnostics, a systematic framework to pinpoint the sources of regret in partner-aware agents for multi-agent and human-robot interaction.
+    </p>
+    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+      <a href="https://lnkd.in/gHEDQGfr" target="_blank" class="pub-link">Read Paper ↗</a>
+      <a href="https://roboletics.github.io/corl2026/#accepted" target="_blank" class="pub-link">Workshop Page ↗</a>
+    </div>
+  </div>
   <div class="pub-card">
     <div class="pub-title">Deep Learning for Enhanced Machine Learning Using Neural Networks</div>
     <div class="pub-journal">IJIRTS — International Journal of Innovative Research & Technology Studies · 2024</div>
-    <p style="font-size:0.875rem; color:rgba(226,232,240,0.6); margin-bottom:1rem; line-height:1.7;">
+    <p style="font-size:0.875rem; color:rgba(var(--text-rgb),0.6); margin-bottom:1rem; line-height:1.7;">
       Research on neural network architectures tailored for speech, image, and text data. Demonstrates practical effectiveness of deep learning in real-world applications.
     </p>
     <div style="display:flex; gap:1rem; flex-wrap:wrap;">
@@ -720,7 +945,7 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label">// 07</div>
+  <div class="section-label">// 09</div>
   <h2 class="section-title">Get In Touch</h2>
   <div class="contact-grid">
     <a href="mailto:nitishkumarroy526@gmail.com" class="contact-item">
@@ -738,6 +963,11 @@
       <span class="contact-platform">ORCID</span>
       <span class="contact-value">0009-0005-9081-2444</span>
     </a>
+    <a href="https://nitishkumarroy999.github.io/MineMirror-AI-is-a-real-time-Physics-Informed-Digital-Twin-platform-/" target="_blank" class="contact-item">
+      <span class="contact-icon">🪞</span>
+      <span class="contact-platform">MineMirror AI</span>
+      <span class="contact-value">Digital twin platform</span>
+    </a>
     <div class="contact-item" style="cursor:default;">
       <span class="contact-icon">📍</span>
       <span class="contact-platform">Location</span>
@@ -753,7 +983,7 @@
 <!-- Music Player UI -->
 <div id="music-player" style="
   position:fixed; bottom:1.5rem; right:1.5rem; z-index:200;
-  background:rgba(6,10,16,0.88); backdrop-filter:blur(20px);
+  background:rgba(var(--bg-rgb),0.88); backdrop-filter:blur(20px);
   border:1px solid rgba(56,189,248,0.18); border-radius:14px;
   padding:0.8rem 1rem; display:flex; align-items:center; gap:0.7rem;
   box-shadow: 0 4px 24px rgba(0,0,0,0.4);
@@ -767,7 +997,7 @@
   " title="Play / Pause">▶</button>
   <div style="flex:1; min-width:0;">
     <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:#38bdf8; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:2px;">Now Playing</div>
-    <div style="font-size:0.76rem; color:#e2e8f0; font-family:'Space Grotesk',sans-serif; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Guitar Solo — Neural Breeze</div>
+    <div style="font-size:0.76rem; color:var(--text); font-family:'Space Grotesk',sans-serif; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Guitar Solo — Neural Breeze</div>
     <div id="music-bars" style="display:flex; gap:2px; margin-top:5px; align-items:flex-end; height:14px;">
       <span class="bar" style="width:3px;background:linear-gradient(#38bdf8,#0e7490);border-radius:2px;height:4px;"></span>
       <span class="bar" style="width:3px;background:linear-gradient(#38bdf8,#0e7490);border-radius:2px;height:10px;"></span>
@@ -1118,6 +1348,23 @@ function setVolume(val){
   currentVol=val/100;
   if(masterGain) masterGain.gain.value=currentVol;
 }
+</script>
+
+<script>
+/* ── DARK / LIGHT THEME TOGGLE ── */
+(function(){
+  var btn=document.getElementById('theme-toggle');
+  function apply(t){
+    document.documentElement.setAttribute('data-theme',t);
+    btn.textContent = t==='dark' ? '☀' : '☾';
+    btn.setAttribute('aria-label', t==='dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    try{ localStorage.setItem('theme',t); }catch(e){}
+  }
+  apply(document.documentElement.getAttribute('data-theme')||'dark');
+  btn.addEventListener('click',function(){
+    apply(document.documentElement.getAttribute('data-theme')==='dark' ? 'light' : 'dark');
+  });
+})();
 </script>
 
 </body>
